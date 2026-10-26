@@ -60,8 +60,12 @@ awk -v rx="$rx_delta" -v tx="$tx_delta" -v elapsed="$elapsed_ns" '
     return bytes * 1000000000 / elapsed
   }
 
-  function human(bytes) {
-    return sprintf("%.1fMB", bytes / 1048576)
+  # Keep every value at five characters so a narrow bar slot never clips.
+  function human(bytes,    mb) {
+    mb = bytes / 1048576
+    if (mb < 9.95) return sprintf("%.1fMB", mb)
+    if (mb < 999.5) return sprintf("%.0fMB", mb)
+    return sprintf("%.1fGB", mb / 1024)
   }
 
   BEGIN {

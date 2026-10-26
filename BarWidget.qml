@@ -16,8 +16,8 @@ BarWidget {
     return isFinite(value) && value > 0 ? Math.max(48, Math.min(180, value)) : 80
   }
   readonly property real rateFontSize: Math.max(8, Style.font.caption)
-  // Always one decimal megabyte, padded through gigabit-class "125.0MB".
-  readonly property int rateDisplayWidth: 7
+  // The script emits at most five characters ("9.5MB", "117MB", "1.2GB").
+  readonly property int rateDisplayWidth: 5
   readonly property string throughputScript: localPath(Qt.resolvedUrl("scripts/network-throughput"))
 
   readonly property bool opened: panelLoader.item
